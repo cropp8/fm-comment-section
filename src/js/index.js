@@ -1,6 +1,6 @@
 import '../scss/main.scss';
 
-import { makeRequest } from './api';
+import { makeRequest, getCurrentUser } from './api';
 import { CsComment } from './components/CsComment';
 
 
@@ -20,4 +20,6 @@ const createComments = (comments) => {
   });
 }
 
-makeRequest('comments.json').then(data => createComments(data));
+getCurrentUser().then(() => {
+  makeRequest('comments.json').then(data => createComments(data));
+});

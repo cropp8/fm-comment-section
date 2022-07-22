@@ -27,7 +27,8 @@ $b: '.cs-rating';
     }
 
     &:hover,
-    &:active {
+    &:active,
+    &--active {
       svg path {
         fill: $color-primary;
       }

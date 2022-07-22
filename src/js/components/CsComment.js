@@ -1,4 +1,4 @@
-import { voteOnComment } from '../api';
+import { voteOnComment, findUserVote } from '../api';
 
 export class CsComment {
   element;
@@ -30,13 +30,14 @@ export class CsComment {
     this.appendToParent(parentContainer);
   }
 
-  populateWithData({ id, content, createdAt, score, replyingTo, user }) {
+  populateWithData({ content, createdAt, score, replyingTo, user, votes }) {
     const userPicture = this.element.querySelector('.cs-comment__user-picture-img');
     const userName = this.element.querySelector('.cs-comment__user-name');
     const date = this.element.querySelector('.cs-comment__date');
     const mention = this.element.querySelector('.cs-comment__mention');
     const comment = this.element.querySelector('.cs-comment__comment');
     const rating = this.element.querySelector('.cs-rating__number');
+    const currentUserVote = findUserVote(votes);
 
     userPicture.src = user.image.png;
     userName.innerHTML = user.username;
@@ -46,6 +47,11 @@ export class CsComment {
 
     if (replyingTo) {
       mention.innerHTML = replyingTo;
+    }
+
+    if (currentUserVote) {
+      this.element.querySelector(`.cs-rating__btn--${currentUserVote.upvoted ? 'plus' : 'minus'}`).classList.add('cs-rating__btn--active');
+      this.element.querySelector(`.cs-rating__btn--${currentUserVote.upvoted ? 'minus' : 'plus'}`).classList.remove('cs-rating__btn--active');
     }
   }
 
@@ -61,10 +67,11 @@ export class CsComment {
           parentId = this.parentComponent.dbId;
         }
 
-        voteOnComment(upvote, this.dbId, parentId).then((newData) => {
+        voteOnComment(upvote, this.dbId, parentId)
+        .then((newData) => {
           this.populateWithData(newData);
-        });
-        
+        })
+        .catch(() => {});
       });
     });
   }
