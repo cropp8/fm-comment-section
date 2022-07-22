@@ -1,0 +1,22 @@
+@use "sass:map";
+
+@mixin font-face($font-family, $file-path, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: $font-family;
+    font-style: $style;
+    font-weight: $weight;
+    font-display: swap;
+    src: url('#{$file-path}.woff') format('woff');
+  }
+}
+
+@mixin font-smoothing {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin breakpoint($name) {
+  @media screen and (max-width: map.get($breakpoints, $name)) {
+    @content;
+  }
+}

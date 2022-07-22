@@ -1,0 +1,14 @@
+body {
+  @include font-smoothing;
+
+  background-color: $color-grey-200;
+  font-family: $font-rubik;
+  font-size: $font-size;
+  line-height: 1.5;
+  color: $color-bluegrey-600;
+}
+
+::selection {
+  background-color: $color-blue-500;
+  color: $color-grey-200;
+}
