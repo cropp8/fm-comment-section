@@ -2,9 +2,7 @@ $b: '.cs-comment';
 
 #{$b} {
   &__container {
-    background-color: $color-white;
-    border-radius: 10px;
-    padding: 24px;
+    @include card;
     display: grid;
     column-gap: 25px;
     grid-template-columns: auto 1fr;
@@ -74,6 +72,20 @@ $b: '.cs-comment';
     align-items: center;
     color: $color-primary;
     font-weight: 500;
+    transition: color $transition-duration;
+
+    &:hover,
+    &:active {
+      color: $color-primary-light;
+
+      img {
+        opacity: 0.4;
+      }
+    }
+
+    img {
+      transition: opacity $transition-duration;
+    }
   }
 
   &__replies {

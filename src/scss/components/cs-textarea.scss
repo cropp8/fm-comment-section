@@ -1,0 +1,16 @@
+$b: '.cs-textarea';
+
+#{$b} {
+  resize: none;
+  border-radius: $border-radius;
+  border: 1px solid $color-grey-400;
+  padding: 15px 24px;
+  width: 100%;
+  height: 100px;
+  transition: all $transition-duration;
+
+  &:focus {
+    border-color: $color-bluegrey-600;
+    color: $color-bluegrey-800;
+  }
+}

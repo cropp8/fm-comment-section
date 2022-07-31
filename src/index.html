@@ -1,64 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comment Section</title>
-</head>
-<body>
-  <div class="cs-section">
-    <div class="cs-container">
-      <div class="cs-section__content">
-        <ul id="comments" class="cs-comments"></ul>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment Section</title>
+  </head>
+
+  <body>
+    <div class="cs-section">
+      <div class="cs-container">
+        <div class="cs-section__content">
+          <ul id="comments" class="cs-comments"></ul>
+          <div id="new-comment" class="cs-new-comment"></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <template id="comment-template">
-    <li class="cs-comment">
-      <div class="cs-comment__container">
-        <div class="cs-comment__content">
-          <div class="cs-comment__info">
-            <div class="cs-comment__user">
-              <div class="cs-comment__user-picture">
-                <img class="cs-comment__user-picture-img" alt="">
+    <template id="comment-template">
+      <li class="cs-comment">
+        <div class="cs-comment__container">
+          <div class="cs-comment__content">
+            <div class="cs-comment__info">
+              <div class="cs-comment__user">
+                <div class="cs-comment__user-picture">
+                  <img class="cs-comment__user-picture-img" alt="">
+                </div>
+                <div class="cs-comment__user-name"></div>
               </div>
-              <div class="cs-comment__user-name"></div>
+              <div class="cs-comment__date"></div>
+              <div class="cs-comment__reply cs-comment__reply--desktop">
+                <button class="cs-comment__reply-btn">
+                  <img src="./assets/images/icon-reply.svg" alt="">
+                  Reply
+                </button>
+              </div>
             </div>
-            <div class="cs-comment__date"></div>
-            <div class="cs-comment__reply cs-comment__reply--desktop">
-              <button class="cs-comment__reply-btn">
-                <img src="./assets/images/icon-reply.svg" alt="">
-                Reply
+            <p class="cs-comment__text cs-base-text">
+              <span class="cs-comment__mention"></span>
+              <span class="cs-comment__comment"></span>
+            </p>
+          </div>
+          <div class="cs-comment__rating">
+            <div class="cs-rating">
+              <button class="cs-rating__btn cs-rating__btn--plus">
+                <svg width="11" height="11" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M6.33 10.896c.137 0 .255-.05.354-.149.1-.1.149-.217.149-.354V7.004h3.315c.136 0 .254-.05.354-.149.099-.1.148-.217.148-.354V5.272a.483.483 0 0 0-.148-.354.483.483 0 0 0-.354-.149H6.833V1.4a.483.483 0 0 0-.149-.354.483.483 0 0 0-.354-.149H4.915a.483.483 0 0 0-.354.149c-.1.1-.149.217-.149.354v3.37H1.08a.483.483 0 0 0-.354.15c-.1.099-.149.217-.149.353v1.23c0 .136.05.254.149.353.1.1.217.149.354.149h3.333v3.39c0 .136.05.254.15.353.098.1.216.149.353.149H6.33Z"
+                    fill="#C5C6EF" />
+                </svg>
+              </button>
+              <span class="cs-rating__number"></span>
+              <button class="cs-rating__btn cs-rating__btn--minus">
+                <svg width="11" height="3" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M9.256 2.66c.204 0 .38-.056.53-.167.148-.11.222-.243.222-.396V.722c0-.152-.074-.284-.223-.395a.859.859 0 0 0-.53-.167H.76a.859.859 0 0 0-.53.167C.083.437.009.57.009.722v1.375c0 .153.074.285.223.396a.859.859 0 0 0 .53.167h8.495Z"
+                    fill="#C5C6EF" />
+                </svg>
               </button>
             </div>
           </div>
-          <p class="cs-comment__text cs-base-text">
-            <span class="cs-comment__mention"></span>
-            <span class="cs-comment__comment"></span>
-          </p>
-        </div>
-        <div class="cs-comment__rating">
-          <div class="cs-rating">
-            <button class="cs-rating__btn cs-rating__btn--plus">
-              <svg width="11" height="11" xmlns="http://www.w3.org/2000/svg"><path d="M6.33 10.896c.137 0 .255-.05.354-.149.1-.1.149-.217.149-.354V7.004h3.315c.136 0 .254-.05.354-.149.099-.1.148-.217.148-.354V5.272a.483.483 0 0 0-.148-.354.483.483 0 0 0-.354-.149H6.833V1.4a.483.483 0 0 0-.149-.354.483.483 0 0 0-.354-.149H4.915a.483.483 0 0 0-.354.149c-.1.1-.149.217-.149.354v3.37H1.08a.483.483 0 0 0-.354.15c-.1.099-.149.217-.149.353v1.23c0 .136.05.254.149.353.1.1.217.149.354.149h3.333v3.39c0 .136.05.254.15.353.098.1.216.149.353.149H6.33Z" fill="#C5C6EF"/></svg>
-            </button>
-            <span class="cs-rating__number"></span>
-            <button class="cs-rating__btn cs-rating__btn--minus">
-              <svg width="11" height="3" xmlns="http://www.w3.org/2000/svg"><path d="M9.256 2.66c.204 0 .38-.056.53-.167.148-.11.222-.243.222-.396V.722c0-.152-.074-.284-.223-.395a.859.859 0 0 0-.53-.167H.76a.859.859 0 0 0-.53.167C.083.437.009.57.009.722v1.375c0 .153.074.285.223.396a.859.859 0 0 0 .53.167h8.495Z" fill="#C5C6EF"/></svg>
+          <div class="cs-comment__reply cs-comment__reply--mobile">
+            <button class="cs-comment__reply-btn">
+              <img src="./assets/images/icon-reply.svg" alt="">
+              Reply
             </button>
           </div>
         </div>
-        <div class="cs-comment__reply cs-comment__reply--mobile">
-          <button class="cs-comment__reply-btn">
-            <img src="./assets/images/icon-reply.svg" alt="">
-            Reply
-          </button>
+        <div class="cs-comment__replies"></div>
+      </li>
+    </template>
+
+    <template id="add-comment-template">
+      <div class="cs-add-comment">
+        <div class="cs-add-comment__user-picture">
+          <img class="cs-add-comment__user-picture-img">
         </div>
+        <form class="cs-add-comment__form">
+          <textarea name="comment" maxlength="300" class="cs-textarea" placeholder="Add a comment..."></textarea>
+          <input type="hidden" name="replyto" value="">
+          <input type="hidden" name="thread" value="">
+          <button class="cs-button cs-add-comment__button" type="submit">Send</button>
+        </form>
       </div>
-      <div class="cs-comment__replies"></div>
-    </li>
-  </template>
-</body>
+    </template>
+  </body>
+
 </html>

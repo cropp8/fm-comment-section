@@ -1,0 +1,25 @@
+$b: '.cs-add-comment';
+
+#{$b} {
+  @include card;
+  display: grid;
+  column-gap: 15px;
+  grid-template-columns: auto 1fr;
+
+  &__user-picture {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+  }
+
+  &__form {
+    display: grid;
+    column-gap: 15px;
+    grid-template-columns: 1fr 100px;
+  }
+
+  &__button {
+    align-self: start;
+  }
+}

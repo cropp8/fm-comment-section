@@ -20,3 +20,9 @@
     @content;
   }
 }
+
+@mixin card {
+  background-color: $color-white;
+  border-radius: $border-radius;
+  padding: 24px;
+}

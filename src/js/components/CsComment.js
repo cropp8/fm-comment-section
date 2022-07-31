@@ -63,6 +63,7 @@ export class CsComment {
       let parentId;
 
       button.addEventListener('click', () => {
+        console.log('rating btn click', this.dbId);
         if (this.parentComponent) {
           parentId = this.parentComponent.dbId;
         }

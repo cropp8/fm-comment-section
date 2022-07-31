@@ -1,0 +1,16 @@
+$b: '.cs-button';
+
+#{$b} {
+  background-color: $color-primary;
+  color: $color-white;
+  font-weight: 500;
+  text-transform: uppercase;
+  height: 46px;
+  border-radius: $border-radius;
+  transition: background-color $transition-duration;
+
+  &:hover,
+  &:active {
+    background-color: $color-primary-light;
+  }
+}
