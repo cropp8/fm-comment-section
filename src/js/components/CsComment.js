@@ -1,4 +1,9 @@
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
 import { voteOnComment, findUserVote } from '../api';
+
+dayjs.extend(relativeTime);
 
 export class CsComment {
   element;
@@ -41,7 +46,7 @@ export class CsComment {
 
     userPicture.src = user.image.png;
     userName.innerHTML = user.username;
-    date.innerHTML = createdAt;
+    date.innerHTML = dayjs().to(dayjs(createdAt));
     comment.innerHTML = content;
     rating.innerHTML = score;
 

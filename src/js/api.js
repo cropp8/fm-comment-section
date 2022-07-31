@@ -68,7 +68,7 @@ export function addComment(commentText) {
   const commentBody = {
     id: null,
     content: commentText,
-    createdAt: 'just now',
+    createdAt: new Date().toUTCString,
     score: 0,
     user: currentUser,
     replies: [],

@@ -20,13 +20,13 @@ const createComments = (comments) => {
   });
 }
 
-const createAddComment = (currentUser) => {
+const createAddComment = () => {
   const parentElement = document.getElementById('new-comment');
 
   new CsAddComment(parentElement, currentUser);
 }
 
 getCurrentUser().then(() => {
-  createAddComment(currentUser);
+  createAddComment();
   makeRequest('comments.json').then(data => createComments(data));
 });
