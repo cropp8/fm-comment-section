@@ -68,6 +68,7 @@
             </button>
           </div>
         </div>
+        <div class="cs-comment__reply-form"></div>
         <div class="cs-comment__replies"></div>
       </li>
     </template>
@@ -78,10 +79,10 @@
           <img class="cs-add-comment__user-picture-img">
         </div>
         <form class="cs-add-comment__form">
-          <textarea name="comment" maxlength="300" class="cs-textarea" placeholder="Add a comment..."></textarea>
+          <textarea name="comment" maxlength="300" class="cs-textarea cs-add-comment__textarea" placeholder="Add a comment..."></textarea>
           <input type="hidden" name="replyto" value="">
           <input type="hidden" name="thread" value="">
-          <button class="cs-button cs-add-comment__button" type="submit">Send</button>
+          <button class="cs-button cs-add-comment__button" type="submit"></button>
         </form>
       </div>
     </template>

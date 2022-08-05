@@ -6,7 +6,7 @@ $b: '.cs-comment';
     display: grid;
     column-gap: 25px;
     grid-template-columns: auto 1fr;
-    margin-bottom: 18px;
+    margin-bottom: 8px;
   }
 
   &__content {
@@ -92,5 +92,9 @@ $b: '.cs-comment';
     margin-left: 42px;
     padding-left: 42px;
     border-left: 2px solid $color-grey-400;
+  }
+
+  &__reply-form {
+    margin-bottom: 18px;
   }
 }

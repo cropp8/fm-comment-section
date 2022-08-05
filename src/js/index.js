@@ -1,6 +1,8 @@
 import '../scss/main.scss';
 
-import { currentUser, makeRequest, getCurrentUser } from './api';
+import state from './state';
+import { makeRequest } from './api';
+import { getCurrentUser } from './actions/getCurrentUser';
 import { CsComment } from './components/CsComment';
 import { CsAddComment } from './components/CsAddComment';
 
@@ -23,10 +25,12 @@ const createComments = (comments) => {
 const createAddComment = () => {
   const parentElement = document.getElementById('new-comment');
 
-  new CsAddComment(parentElement, currentUser);
+  new CsAddComment(parentElement, state.currentUser);
 }
 
-getCurrentUser().then(() => {
-  createAddComment();
-  makeRequest('comments.json').then(data => createComments(data));
-});
+getCurrentUser()
+  .then(() => {
+    createAddComment();
+    makeRequest('comments.json').then(data => createComments(data));
+  })
+  .catch((error) => console.error(error));

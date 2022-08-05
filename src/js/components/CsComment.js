@@ -1,7 +1,9 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
-import { voteOnComment, findUserVote } from '../api';
+import { voteOnComment } from '../actions/voteOnComment';
+import { findUserVote } from '../actions/findUserVote';
+import { CsAddReply } from './CsAddReply';
 
 dayjs.extend(relativeTime);
 
@@ -13,6 +15,7 @@ export class CsComment {
   replyComponents = [];
   repliesContainer;
   parentComponent;
+  replyForm;
 
   constructor(data, parentContainer, parentComponent) {
     const commentTemplate = document.getElementById('comment-template').content.querySelector('.cs-comment');
@@ -62,13 +65,13 @@ export class CsComment {
 
   setEventListeners() {
     const ratingButtons = this.element.querySelectorAll('.cs-rating__btn');
+    const replyButton = this.element.querySelector('.cs-comment__reply');
 
     ratingButtons.forEach((button) => {
       const upvote = button.classList.contains('cs-rating__btn--plus');
       let parentId;
 
       button.addEventListener('click', () => {
-        console.log('rating btn click', this.dbId);
         if (this.parentComponent) {
           parentId = this.parentComponent.dbId;
         }
@@ -80,6 +83,11 @@ export class CsComment {
         .catch(() => {});
       });
     });
+
+    replyButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.createReplyForm();
+    });
   }
 
   appendToParent(parentContainer) {
@@ -88,5 +96,15 @@ export class CsComment {
 
   appendReplyComponent(replyCsComment) {
     this.replyComponents.push(replyCsComment);
+  }
+
+  createReplyForm() {
+    const replyForm = this.element.querySelector('.cs-comment__reply-form');
+
+    this.replyForm = new CsAddReply(replyForm, this);
+  }
+
+  destroyReplyForm() {
+    this.replyForm = null;
   }
 }
