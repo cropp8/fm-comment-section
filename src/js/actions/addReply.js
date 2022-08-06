@@ -2,7 +2,7 @@ import state from '../state';
 import { makeRequest } from '../api';
 import { CsComment } from '../components/CsComment';
 
-export function addReply(commentText, parentDbId, parentRepliesNumber) {
+export function addReply(commentText, parentDbId, parentRepliesNumber, replyingTo) {
   const commentBody = {
     id: parentRepliesNumber + 1,
     content: commentText,
@@ -10,6 +10,7 @@ export function addReply(commentText, parentDbId, parentRepliesNumber) {
     score: 0,
     user: state.currentUser,
     replies: [],
+    replyingTo,
   };
 
   return makeRequest(`comments/${parentDbId}/replies/${parentRepliesNumber}.json`, 'PUT', commentBody);

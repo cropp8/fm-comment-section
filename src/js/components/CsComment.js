@@ -10,6 +10,7 @@ dayjs.extend(relativeTime);
 export class CsComment {
   element;
   dbId;
+  username;
   replies;
   repliesNumber = 0;
   replyComponents = [];
@@ -22,6 +23,7 @@ export class CsComment {
 
     this.element = commentTemplate.cloneNode(true);
     this.dbId = data.dbId;
+    this.username = data.user?.username;
     this.repliesContainer = this.element.querySelector('.cs-comment__replies');
 
     if (data.replies && data.replies.length) {
@@ -101,7 +103,7 @@ export class CsComment {
   createReplyForm() {
     const replyForm = this.element.querySelector('.cs-comment__reply-form');
 
-    this.replyForm = new CsAddReply(replyForm, this);
+    this.replyForm = new CsAddReply(replyForm, this.parentComponent || this, this.username);
   }
 
   destroyReplyForm() {

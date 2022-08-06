@@ -7,8 +7,8 @@ export class CsAddReply extends CsAddComment {
   parentComment;
   outerClickHandler;
 
-  constructor(parentElement, parentComment) {
-    super(parentElement, state.currentUser, 'Reply');
+  constructor(parentElement, parentComment, username) {
+    super(parentElement, state.currentUser, 'Reply', username);
     this.parentComment = parentComment;
     this.onOuterClick = this.onOuterClick.bind(this);
     this.setOuterClickListener();
@@ -27,12 +27,11 @@ export class CsAddReply extends CsAddComment {
     this.destroy();
   }
 
-  addComment(commentText) {
+  addComment(commentText, replyingTo) {
     const parentDbId = this.parentComment.dbId;
     const parentRepliesNumber = this.parentComment.repliesNumber;
 
-    console.log(commentText);
-    addReply(commentText, parentDbId, parentRepliesNumber)
+    addReply(commentText, parentDbId, parentRepliesNumber, replyingTo)
       .then((reply) => {
         const replyComponent = new CsComment({ ...reply, dbId: parentRepliesNumber }, this.parentComment.repliesContainer, this.parentComment);
 
