@@ -16,6 +16,7 @@ export function deleteComment(commentDbId, parentDbId) {
       return Promise.resolve(data);
     })
     .then((updatedCommentsData) => {
+      console.log(updatedCommentsData);
       return makeRequest(`comments.json`, 'PUT', updatedCommentsData);
     })
     .catch((error) => console.error(error));

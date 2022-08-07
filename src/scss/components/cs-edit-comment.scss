@@ -1,0 +1,11 @@
+$b: '.cs-edit-comment'; 
+
+#{$b} {
+  display: grid;
+  row-gap: 15px;
+
+  &__button {
+    justify-self: end;
+    width: 100px;
+  }
+}

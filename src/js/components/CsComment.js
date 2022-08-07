@@ -198,6 +198,7 @@ export class CsComment {
     this.textarea.value = commentMention ? `@${commentMention} ${commentText}` : commentText;
     this.editForm.classList.remove('cs-u-hidden');
     this.textContainer.classList.add('cs-u-hidden');
+    this.textarea.focus();
   }
 
   destroy() {

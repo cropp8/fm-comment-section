@@ -34,3 +34,21 @@ getCurrentUser()
     makeRequest('comments.json').then(data => createComments(data));
   })
   .catch((error) => console.error(error));
+
+// const comment = {
+//   id: 2,
+//   content: 'Hello world',
+//   createdAt: new Date('2022-08-02').toUTCString(),
+//   score: 5,
+//   user: {
+//     username: 'amyrobson',
+//     image: {
+//       png: 'https://i.imgur.com/7kNxKIt.png',
+//       webp: '',
+//     }
+//   },
+//   replies: [],
+//   replyingTo: 'maxblagun'
+// };
+
+// makeRequest(`comments/1/replies/1.json`, 'PUT', comment);
