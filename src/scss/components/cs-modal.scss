@@ -10,6 +10,7 @@ $b: '.cs-modal';
   display: grid;
   align-items: center;
   justify-items: center;
+  padding: 0 15px;
 
   &__backdrop {
     position: absolute;
@@ -24,7 +25,12 @@ $b: '.cs-modal';
     @include card;
     position: relative;
     padding: 32px;
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
+
+    @include breakpoint(sm) {
+      padding: 24px;
+    }
   }
 
   &__heading {
@@ -32,6 +38,10 @@ $b: '.cs-modal';
     color: $color-bluegrey-800;
     font-weight: 500;
     margin-bottom: 15px;
+
+    @include breakpoint(sm) {
+      font-size: 20px;
+    }
   }
 
   &__text {
@@ -42,5 +52,9 @@ $b: '.cs-modal';
     display: grid;
     column-gap: 15px;
     grid-template-columns: 1fr 1fr;
+
+    @include breakpoint(sm) {
+      column-gap: 12px;
+    }
   }
 }

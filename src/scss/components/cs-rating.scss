@@ -8,6 +8,12 @@ $b: '.cs-rating';
   background-color: $color-grey-200;
   overflow: hidden;
 
+  @include breakpoint(sm) {
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+  }
+
   &__btn,
   &__number {
     display: grid;

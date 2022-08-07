@@ -2,24 +2,47 @@ $b: '.cs-add-comment';
 
 #{$b} {
   @include card;
+  position: relative;
   display: grid;
   column-gap: 15px;
   grid-template-columns: auto 1fr;
+
+  @include breakpoint(sm) {
+    grid-template-columns: 1fr;
+  }
 
   &__user-picture {
     border-radius: 50%;
     overflow: hidden;
     width: 40px;
     height: 40px;
+
+    @include breakpoint(sm) {
+      position: absolute;
+      bottom: 20px;
+      left: 15px;
+      width: 32px;
+      height: 32px;
+    }
   }
 
   &__form {
     display: grid;
     column-gap: 15px;
     grid-template-columns: 1fr 100px;
+
+    @include breakpoint(sm) {
+      grid-template-columns: 1fr;
+      row-gap: 15px;
+    }
   }
 
   &__button {
     align-self: start;
+
+    @include breakpoint(sm) {
+      width: 100px;
+      justify-self: end;
+    }
   }
 }

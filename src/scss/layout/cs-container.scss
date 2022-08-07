@@ -4,4 +4,8 @@ $b: '.cs-container';
   margin: 0 auto;
   max-width: 800px;
   padding: 0 40px;
+
+  @include breakpoint(sm) {
+    padding: 0 15px;
+  }
 }

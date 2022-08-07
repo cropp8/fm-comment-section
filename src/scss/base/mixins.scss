@@ -25,4 +25,8 @@
   background-color: $color-white;
   border-radius: $border-radius;
   padding: 24px;
+
+  @include breakpoint(sm) {
+    padding: 15px;
+  }
 }

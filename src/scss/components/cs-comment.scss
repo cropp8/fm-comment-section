@@ -7,12 +7,22 @@ $b: '.cs-comment';
     column-gap: 25px;
     grid-template-columns: auto 1fr;
     margin-bottom: 8px;
+
+    @include breakpoint(sm) {
+      grid-template-columns: min-content auto;
+      column-gap: 15px;
+      row-gap: 15px;
+    }
   }
 
   &__content {
     grid-column: 2 / 3;
     display: grid;
     row-gap: 15px;
+
+    @include breakpoint(sm) {
+      grid-column: 1 / -1;
+    }
   }
 
   &__info {
@@ -67,11 +77,29 @@ $b: '.cs-comment';
   &__rating {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
+
+    @include breakpoint(sm) {
+      grid-column: 1 / 2;
+      grid-row: 2 / 3;
+      width: 96px;
+    }
   }
 
   &__actions {
     &--mobile {
       display: none;
+      grid-column: 2 / -1;
+      justify-self: end;
+
+      @include breakpoint(sm) {
+        display: block;
+      }
+    }
+
+    &--desktop {
+      @include breakpoint(sm) {
+        display: none;
+      }
     }
   }
 
@@ -111,12 +139,21 @@ $b: '.cs-comment';
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 24px;
+
+    @include breakpoint(sm) {
+      column-gap: 15px;
+    }
   }
 
   &__replies {
     margin-left: 42px;
     padding-left: 42px;
     border-left: 2px solid $color-grey-400;
+
+    @include breakpoint(sm) {
+      margin-left: 0;
+      padding-left: 15px;
+    }
   }
 
   &__reply-form {

@@ -3,5 +3,9 @@ $b: '.cs-section';
 #{$b} {
   &__content {
     padding: 64px 0;
+
+    @include breakpoint(sm) {
+      padding: 32px 0;
+    }
   }
 }

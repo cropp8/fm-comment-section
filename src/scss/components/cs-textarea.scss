@@ -9,6 +9,10 @@ $b: '.cs-textarea';
   height: 100px;
   transition: all $transition-duration;
 
+  @include breakpoint(sm) {
+    padding: 10px 24px;
+  }
+
   &:focus {
     border-color: $color-bluegrey-600;
     color: $color-bluegrey-800;
