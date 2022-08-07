@@ -41,7 +41,7 @@ export class CsComment {
     this.textarea = this.editForm.querySelector('.cs-edit-comment__textarea');
     this.textContainer = this.element.querySelector('.cs-comment__text');
 
-    if (data.replies && data.replies.length) {
+    if (data.replies?.length) {
       this.replies = data.replies;
       this.repliesNumber = data.replies.length;
     }
