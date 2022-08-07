@@ -106,11 +106,32 @@
           <img class="cs-add-comment__user-picture-img">
         </div>
         <form class="cs-add-comment__form">
-          <textarea name="comment" maxlength="300" class="cs-textarea cs-add-comment__textarea" placeholder="Add a comment..."></textarea>
+          <textarea name="comment" maxlength="300" class="cs-textarea cs-add-comment__textarea"
+            placeholder="Add a comment..."></textarea>
           <input type="hidden" name="replyto" value="">
           <input type="hidden" name="thread" value="">
           <button class="cs-button cs-add-comment__button" type="submit"></button>
         </form>
+      </div>
+    </template>
+
+    <template id="modal-template">
+      <div class="cs-modal">
+        <div class="cs-modal__backdrop"></div>
+        <div class="cs-modal__window">
+          <div class="cs-modal__content">
+            <h3 class="cs-modal__heading">
+              Delete comment
+            </h3>
+            <p class="cs-modal__text">
+              Are you sure you want to delete this comment? This will remove the comment and can't be undone.
+            </p>
+            <div class="cs-modal__actions">
+              <button class="cs-button cs-button--grey cs-modal__button-close" type="button">No, cancel</button>
+              <button class="cs-button cs-button--danger cs-modal__button-delete" type="button">Yes, delete</button>
+            </div>
+          </div>
+        </div>
       </div>
     </template>
   </body>

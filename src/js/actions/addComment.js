@@ -14,7 +14,7 @@ export function addComment(commentText) {
   };
   let commentDbId;
 
-  makeRequest('comments.json')
+  return makeRequest('comments.json')
     .then((comments) => {
       commentDbId = comments.length;
       commentBody.id = commentDbId + 1;
@@ -23,6 +23,7 @@ export function addComment(commentText) {
     })
     .then((response) => {
       new CsComment({ ...response, dbId: commentDbId }, parentContainer);
+      return Promise.resolve('success');
     })
     .catch((error) => console.error(error));
 }

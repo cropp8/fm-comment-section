@@ -6,6 +6,7 @@ import { deleteComment } from '../actions/deleteComment';
 import { findUserVote } from '../utilities/findUserVote';
 import { commentIsByCurrentUser } from '../utilities/commentIsByCurrentUser';
 import { CsAddReply } from './CsAddReply';
+import { CsModal } from './CsModal';
 
 dayjs.extend(relativeTime);
 
@@ -52,8 +53,8 @@ export class CsComment {
     const mention = this.element.querySelector('.cs-comment__mention');
     const comment = this.element.querySelector('.cs-comment__comment');
     const rating = this.element.querySelector('.cs-rating__number');
-    const replyButtonContainer = this.element.querySelector('.cs-comment__reply');
-    const editDeleteButtonsContainer = this.element.querySelector('.cs-comment__edit-delete');
+    const replyButtonContainers = this.element.querySelectorAll('.cs-comment__reply');
+    const editDeleteButtonsContainers = this.element.querySelectorAll('.cs-comment__edit-delete');
     const currentUserVote = findUserVote(votes);
 
     userPicture.src = user.image.png;
@@ -73,15 +74,19 @@ export class CsComment {
 
     if (this.byCurrentUser) {
       userYou.innerHTML = 'you';
-      replyButtonContainer.remove();
+      replyButtonContainers.forEach((replyButtonContainer) => {
+        replyButtonContainer.remove();
+      });
     } else {
-      editDeleteButtonsContainer.remove();
+      editDeleteButtonsContainers.forEach((editDeleteButtonsContainer) => {
+        editDeleteButtonsContainer.remove();
+      });
     }
   }
 
   setEventListeners() {
     const ratingButtons = this.element.querySelectorAll('.cs-rating__btn');
-    const replyButton = this.element.querySelector('.cs-comment__reply-btn'); const deleteButton = this.element.querySelector('.cs-comment__delete-btn');
+    const replyButtons = this.element.querySelectorAll('.cs-comment__reply-btn'); const deleteButtons = this.element.querySelectorAll('.cs-comment__delete-btn');
 
     ratingButtons.forEach((button) => {
       const upvote = button.classList.contains('cs-rating__btn--plus');
@@ -93,24 +98,29 @@ export class CsComment {
         }
 
         voteOnComment(upvote, this.dbId, parentId)
-        .then((newData) => {
-          this.populateWithData(newData);
-        })
-        .catch(() => {});
+          .then((newData) => {
+            this.populateWithData(newData);
+          })
+          .catch(() => { });
       });
     });
 
     if (this.byCurrentUser) {
       // edit & delete buttons
-      deleteButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.deleteComment();
+      deleteButtons.forEach((deleteButton) => {
+        deleteButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.onClickDelete();
+        });
       });
     } else {
-      replyButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.createReplyForm();
+      replyButtons.forEach((replyButton) => {
+        replyButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.createReplyForm();
+        });
       });
+
     }
   }
 
@@ -130,6 +140,10 @@ export class CsComment {
 
   destroyReplyForm() {
     this.replyForm = null;
+  }
+
+  onClickDelete() {
+    new CsModal(this.deleteComment.bind(this));
   }
 
   deleteComment() {

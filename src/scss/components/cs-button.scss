@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 $b: '.cs-button';
 
 #{$b} {
@@ -12,5 +14,23 @@ $b: '.cs-button';
   &:hover,
   &:active {
     background-color: $color-primary-light;
+  }
+
+  &--grey {
+    background-color: $color-bluegrey-600;
+
+    &:hover,
+    &:active {
+      background-color: lighten($color-bluegrey-600, 30%);
+    }
+  }
+
+  &--danger {
+    background-color: $color-danger;
+
+    &:hover,
+    &:active {
+      background-color: $color-red-300;
+    }
   }
 }
