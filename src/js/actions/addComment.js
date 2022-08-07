@@ -2,15 +2,16 @@ import state from '../state';
 import { makeRequest } from '../api';
 import { CsComment } from '../components/CsComment';
 
-export function addComment(commentText) {
+export function addComment(content, replyingTo) {
   const parentContainer = document.getElementById('comments');
   const commentBody = {
     id: null,
-    content: commentText,
+    content,
     createdAt: new Date().toUTCString(),
     score: 0,
     user: state.currentUser,
     replies: [],
+    replyingTo,
   };
   let commentDbId;
 

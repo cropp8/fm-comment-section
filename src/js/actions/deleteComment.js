@@ -7,7 +7,7 @@ function filterOutCommentToDelete(commentsArray, idToDelete) {
 export function deleteComment(commentDbId, parentDbId) {
   return makeRequest('comments.json')
     .then(data => {
-      if (parentDbId) {
+      if (typeof parentDbId === 'number') {
         data[parentDbId].replies = filterOutCommentToDelete(data[parentDbId].replies, commentDbId);
       } else {
         data = filterOutCommentToDelete(data, commentDbId);

@@ -9,6 +9,7 @@ export class CsModal {
     this.deleteFunction = deleteFunction;
     this.setEventListeners();
     document.body.appendChild(this.element);
+    document.body.classList.add('--cs-modal-open');
   }
 
   setEventListeners() {
@@ -32,5 +33,6 @@ export class CsModal {
 
   destroy() {
     this.element.remove();
+    document.body.classList.remove('--cs-modal-open');
   }
 }

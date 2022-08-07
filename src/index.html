@@ -52,10 +52,16 @@
                 </div>
               </div>
             </div>
-            <p class="cs-comment__text cs-base-text">
+            <p class="cs-comment__text">
               <span class="cs-comment__mention"></span>
               <span class="cs-comment__comment"></span>
             </p>
+            <form class="cs-edit-comment cs-u-hidden">
+              <textarea name="comment" maxlength="300" class="cs-textarea cs-edit-comment__textarea"></textarea>
+              <button class="cs-button cs-edit-comment__button" type="submit">
+                Update
+              </button>
+            </form>
           </div>
           <div class="cs-comment__rating">
             <div class="cs-rating">
@@ -108,8 +114,6 @@
         <form class="cs-add-comment__form">
           <textarea name="comment" maxlength="300" class="cs-textarea cs-add-comment__textarea"
             placeholder="Add a comment..."></textarea>
-          <input type="hidden" name="replyto" value="">
-          <input type="hidden" name="thread" value="">
           <button class="cs-button cs-add-comment__button" type="submit"></button>
         </form>
       </div>

@@ -3,8 +3,10 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 
 import { voteOnComment } from '../actions/voteOnComment';
 import { deleteComment } from '../actions/deleteComment';
+import { updateComment } from '../actions/updateComment';
 import { findUserVote } from '../utilities/findUserVote';
 import { commentIsByCurrentUser } from '../utilities/commentIsByCurrentUser';
+import { getMentionAndText } from '../utilities/getMentionAndText';
 import { CsAddReply } from './CsAddReply';
 import { CsModal } from './CsModal';
 
@@ -12,6 +14,7 @@ dayjs.extend(relativeTime);
 
 export class CsComment {
   element;
+  data;
   dbId;
   username;
   byCurrentUser = false;
@@ -19,6 +22,9 @@ export class CsComment {
   repliesNumber = 0;
   replyComponents = [];
   repliesContainer;
+  editForm;
+  textarea;
+  textContainer;
   parentComponent;
   replyForm;
 
@@ -26,10 +32,14 @@ export class CsComment {
     const commentTemplate = document.getElementById('comment-template').content.querySelector('.cs-comment');
 
     this.element = commentTemplate.cloneNode(true);
+    this.data = data;
     this.dbId = data.dbId;
     this.username = data.user?.username;
     this.byCurrentUser = commentIsByCurrentUser(this.username);
     this.repliesContainer = this.element.querySelector('.cs-comment__replies');
+    this.editForm = this.element.querySelector('.cs-edit-comment');
+    this.textarea = this.editForm.querySelector('.cs-edit-comment__textarea');
+    this.textContainer = this.element.querySelector('.cs-comment__text');
 
     if (data.replies && data.replies.length) {
       this.replies = data.replies;
@@ -87,6 +97,7 @@ export class CsComment {
   setEventListeners() {
     const ratingButtons = this.element.querySelectorAll('.cs-rating__btn');
     const replyButtons = this.element.querySelectorAll('.cs-comment__reply-btn'); const deleteButtons = this.element.querySelectorAll('.cs-comment__delete-btn');
+    const editButtons = this.element.querySelectorAll('.cs-comment__edit-btn');
 
     ratingButtons.forEach((button) => {
       const upvote = button.classList.contains('cs-rating__btn--plus');
@@ -106,12 +117,38 @@ export class CsComment {
     });
 
     if (this.byCurrentUser) {
-      // edit & delete buttons
       deleteButtons.forEach((deleteButton) => {
         deleteButton.addEventListener('click', (e) => {
           e.stopPropagation();
           this.onClickDelete();
         });
+      });
+
+      editButtons.forEach((editButton) => {
+        editButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.onClickEdit();
+        });
+      });
+
+      this.editForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const mentionAndText = getMentionAndText(this.textarea.value);
+        const commentText = mentionAndText?.[1] || this.textarea.value;
+        const mention = mentionAndText?.[0];
+
+        this.data.content = commentText;
+        this.data.replyingTo = mention;
+
+        updateComment(this.data, this.dbId, this.parentComponent?.dbId)
+          .then((updatedCommentData) => {
+            this.populateWithData(updatedCommentData);
+            this.editForm.reset();
+            this.editForm.classList.add('cs-u-hidden');
+            this.textContainer.classList.remove('cs-u-hidden');
+          })
+          .catch((error) => console.error(error));
       });
     } else {
       replyButtons.forEach((replyButton) => {
@@ -152,6 +189,15 @@ export class CsComment {
         this.destroy();
       })
       .catch((error) => console.error(error));
+  }
+
+  onClickEdit() {
+    const commentMention = this.textContainer.querySelector('.cs-comment__mention').innerText;
+    const commentText = this.textContainer.querySelector('.cs-comment__comment').innerText;
+
+    this.textarea.value = commentMention ? `@${commentMention} ${commentText}` : commentText;
+    this.editForm.classList.remove('cs-u-hidden');
+    this.textContainer.classList.add('cs-u-hidden');
   }
 
   destroy() {

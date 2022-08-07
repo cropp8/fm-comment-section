@@ -1,4 +1,5 @@
 import { addComment } from '../actions/addComment';
+import { getMentionAndText } from '../utilities/getMentionAndText';
 
 export class CsAddComment {
   element;
@@ -35,21 +36,17 @@ export class CsAddComment {
     this.form.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      let isAReply;
       const textareaValue = this.form.querySelector('.cs-add-comment__textarea').value;
+      const mentionAndText = getMentionAndText(textareaValue);
+      const commentText = mentionAndText?.[1] || textareaValue;
+      const mention = mentionAndText?.[0];
 
-      if (this.replyingTo) {
-        isAReply = textareaValue[0] === '@' && textareaValue.substring(1, this.replyingTo.length + 1) === this.replyingTo;
-      }
- 
-      const commentText = isAReply ? textareaValue.substring(this.replyingTo.length + 1) : textareaValue;
-
-      this.addComment(commentText, this.replyingTo);
+      this.addComment(commentText, mention);
     });
   }
 
-  addComment(commentText) {
-    addComment(commentText)
+  addComment(commentText, replyingTo) {
+    addComment(commentText, replyingTo)
       .then((result) => {
         if (result === 'success') {
           this.form.reset();

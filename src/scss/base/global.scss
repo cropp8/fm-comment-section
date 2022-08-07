@@ -6,6 +6,11 @@ body {
   font-size: $font-size;
   line-height: 1.5;
   color: $color-bluegrey-600;
+
+  &.--cs-modal-open {
+    overflow: hidden;
+    padding-right: 16px;
+  }
 }
 
 ::selection {
