@@ -1,6 +1,6 @@
 import state from '../state';
 import { makeRequest } from '../api';
-import { findUserVote } from './findUserVote';
+import { findUserVote } from '../utilities/findUserVote';
 
 function updateRating(path, newCommentData) {
   return makeRequest(path, 'PUT', newCommentData);

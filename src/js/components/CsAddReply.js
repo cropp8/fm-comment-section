@@ -5,7 +5,6 @@ import { addReply } from '../actions/addReply';
 
 export class CsAddReply extends CsAddComment {
   parentComment;
-  outerClickHandler;
 
   constructor(parentElement, parentComment, username) {
     super(parentElement, state.currentUser, 'Reply', username);

@@ -39,6 +39,16 @@ $b: '.cs-comment';
   &__user-name {
     font-weight: 500;
     color: $color-bluegrey-800;
+
+    .you {
+      &:not(:empty) {
+        color: $color-white;
+        background-color: $color-primary;
+        font-size: 14px;
+        padding: 0 4px;
+        border-radius: 2px;
+      }
+    }
   }
 
   &__date {
@@ -59,13 +69,13 @@ $b: '.cs-comment';
     grid-row: 1 / 2;
   }
 
-  &__reply {
+  &__actions {
     &--mobile {
       display: none;
     }
   }
 
-  &__reply-btn {
+  &__actions-btn {
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 8px;
@@ -86,6 +96,21 @@ $b: '.cs-comment';
     img {
       transition: opacity $transition-duration;
     }
+
+    &#{$b}__delete-btn {
+      color: $color-danger;
+
+      &:hover,
+      &:active {
+        color: $color-danger-light;
+      }
+    }
+  }
+
+  &__edit-delete {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 24px;
   }
 
   &__replies {

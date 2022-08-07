@@ -27,14 +27,29 @@
                 <div class="cs-comment__user-picture">
                   <img class="cs-comment__user-picture-img" alt="">
                 </div>
-                <div class="cs-comment__user-name"></div>
+                <div class="cs-comment__user-name">
+                  <span class="name"></span>
+                  <span class="you"></span>
+                </div>
               </div>
               <div class="cs-comment__date"></div>
-              <div class="cs-comment__reply cs-comment__reply--desktop">
-                <button class="cs-comment__reply-btn">
-                  <img src="./assets/images/icon-reply.svg" alt="">
-                  Reply
-                </button>
+              <div class="cs-comment__actions cs-comment__actions--desktop">
+                <div class="cs-comment__reply">
+                  <button class="cs-comment__actions-btn cs-comment__reply-btn">
+                    <img src="./assets/images/icon-reply.svg" alt="">
+                    Reply
+                  </button>
+                </div>
+                <div class="cs-comment__edit-delete">
+                  <button class="cs-comment__actions-btn cs-comment__delete-btn">
+                    <img src="./assets/images/icon-delete.svg" alt="">
+                    Delete
+                  </button>
+                  <button class="cs-comment__actions-btn cs-comment__edit-btn">
+                    <img src="./assets/images/icon-edit.svg" alt="">
+                    Edit
+                  </button>
+                </div>
               </div>
             </div>
             <p class="cs-comment__text cs-base-text">
@@ -61,11 +76,23 @@
               </button>
             </div>
           </div>
-          <div class="cs-comment__reply cs-comment__reply--mobile">
-            <button class="cs-comment__reply-btn">
-              <img src="./assets/images/icon-reply.svg" alt="">
-              Reply
-            </button>
+          <div class="cs-comment__actions cs-comment__actions--mobile">
+            <div class="cs-comment__reply">
+              <button class="cs-comment__actions-btn cs-comment__reply-btn">
+                <img src="./assets/images/icon-reply.svg" alt="">
+                Reply
+              </button>
+            </div>
+            <div class="cs-comment__edit-delete">
+              <button class="cs-comment__actions-btn cs-comment__delete-btn">
+                <img src="./assets/images/icon-reply.svg" alt="">
+                Delete
+              </button>
+              <button class="cs-comment__actions-btn cs-comment__edit-btn">
+                <img src="./assets/images/icon-reply.svg" alt="">
+                Edit
+              </button>
+            </div>
           </div>
         </div>
         <div class="cs-comment__reply-form"></div>

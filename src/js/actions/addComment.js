@@ -7,7 +7,7 @@ export function addComment(commentText) {
   const commentBody = {
     id: null,
     content: commentText,
-    createdAt: new Date().toUTCString,
+    createdAt: new Date().toUTCString(),
     score: 0,
     user: state.currentUser,
     replies: [],
@@ -19,12 +19,10 @@ export function addComment(commentText) {
       commentDbId = comments.length;
       commentBody.id = commentDbId + 1;
 
-      return makeRequest(`comments/${commentDbId}.json`, 'PUT', commentBody)
+      return makeRequest(`comments/${commentDbId}.json`, 'PUT', commentBody);
     })
     .then((response) => {
       new CsComment({ ...response, dbId: commentDbId }, parentContainer);
     })
     .catch((error) => console.error(error));
-
-  //makeRequest('comments-test/2.json', 'DELETE');
 }

@@ -2,7 +2,9 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
 import { voteOnComment } from '../actions/voteOnComment';
-import { findUserVote } from '../actions/findUserVote';
+import { deleteComment } from '../actions/deleteComment';
+import { findUserVote } from '../utilities/findUserVote';
+import { commentIsByCurrentUser } from '../utilities/commentIsByCurrentUser';
 import { CsAddReply } from './CsAddReply';
 
 dayjs.extend(relativeTime);
@@ -11,6 +13,7 @@ export class CsComment {
   element;
   dbId;
   username;
+  byCurrentUser = false;
   replies;
   repliesNumber = 0;
   replyComponents = [];
@@ -24,6 +27,7 @@ export class CsComment {
     this.element = commentTemplate.cloneNode(true);
     this.dbId = data.dbId;
     this.username = data.user?.username;
+    this.byCurrentUser = commentIsByCurrentUser(this.username);
     this.repliesContainer = this.element.querySelector('.cs-comment__replies');
 
     if (data.replies && data.replies.length) {
@@ -42,11 +46,14 @@ export class CsComment {
 
   populateWithData({ content, createdAt, score, replyingTo, user, votes }) {
     const userPicture = this.element.querySelector('.cs-comment__user-picture-img');
-    const userName = this.element.querySelector('.cs-comment__user-name');
+    const userName = this.element.querySelector('.cs-comment__user-name .name');
+    const userYou = this.element.querySelector('.cs-comment__user-name .you');
     const date = this.element.querySelector('.cs-comment__date');
     const mention = this.element.querySelector('.cs-comment__mention');
     const comment = this.element.querySelector('.cs-comment__comment');
     const rating = this.element.querySelector('.cs-rating__number');
+    const replyButtonContainer = this.element.querySelector('.cs-comment__reply');
+    const editDeleteButtonsContainer = this.element.querySelector('.cs-comment__edit-delete');
     const currentUserVote = findUserVote(votes);
 
     userPicture.src = user.image.png;
@@ -63,11 +70,18 @@ export class CsComment {
       this.element.querySelector(`.cs-rating__btn--${currentUserVote.upvoted ? 'plus' : 'minus'}`).classList.add('cs-rating__btn--active');
       this.element.querySelector(`.cs-rating__btn--${currentUserVote.upvoted ? 'minus' : 'plus'}`).classList.remove('cs-rating__btn--active');
     }
+
+    if (this.byCurrentUser) {
+      userYou.innerHTML = 'you';
+      replyButtonContainer.remove();
+    } else {
+      editDeleteButtonsContainer.remove();
+    }
   }
 
   setEventListeners() {
     const ratingButtons = this.element.querySelectorAll('.cs-rating__btn');
-    const replyButton = this.element.querySelector('.cs-comment__reply');
+    const replyButton = this.element.querySelector('.cs-comment__reply-btn'); const deleteButton = this.element.querySelector('.cs-comment__delete-btn');
 
     ratingButtons.forEach((button) => {
       const upvote = button.classList.contains('cs-rating__btn--plus');
@@ -86,10 +100,18 @@ export class CsComment {
       });
     });
 
-    replyButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      this.createReplyForm();
-    });
+    if (this.byCurrentUser) {
+      // edit & delete buttons
+      deleteButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.deleteComment();
+      });
+    } else {
+      replyButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.createReplyForm();
+      });
+    }
   }
 
   appendToParent(parentContainer) {
@@ -108,5 +130,17 @@ export class CsComment {
 
   destroyReplyForm() {
     this.replyForm = null;
+  }
+
+  deleteComment() {
+    deleteComment(this.dbId, this.parentComponent?.dbId)
+      .then((response) => {
+        this.destroy();
+      })
+      .catch((error) => console.error(error));
+  }
+
+  destroy() {
+    this.element.remove();
   }
 }
